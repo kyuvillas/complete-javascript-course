@@ -2,20 +2,19 @@
 // Lecture: Hoisting
 
 
+calculateAge(1990);
 
+// function declaration
 
+function calculateAge(year){
+  console.log(2016-year);
+}
 
-
-
-
-
-
-
-
-
-
-
-
+// and function expression
+retirement(1990);     // will be an error
+var retirement = function(year){
+  console.log(65 - (2016 - year));
+}
 
 ///////////////////////////////////////
 // Lecture: Scoping
@@ -66,12 +65,3 @@ function third() {
 
 ///////////////////////////////////////
 // Lecture: The this keyword
-
-
-
-
-
-
-
-
-
