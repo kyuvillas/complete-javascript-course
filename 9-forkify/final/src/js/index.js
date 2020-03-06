@@ -16,7 +16,7 @@ import { elements, renderLoader, clearLoader } from './views/base';
  */
 const state = {};
 
-/** 
+/**
  * SEARCH CONTROLLER
  */
 const controlSearch = async () => {
@@ -35,7 +35,7 @@ const controlSearch = async () => {
         try {
             // 4) Search for recipes
             await state.search.getResults();
-    
+
             // 5) Render results on UI
             clearLoader();
             searchView.renderResults(state.search.result);
@@ -62,7 +62,7 @@ elements.searchResPages.addEventListener('click', e => {
 });
 
 
-/** 
+/**
  * RECIPE CONTROLLER
  */
 const controlRecipe = async () => {
@@ -88,7 +88,7 @@ const controlRecipe = async () => {
             // Calculate servings and time
             state.recipe.calcTime();
             state.recipe.calcServings();
-    
+
             // Render recipe
             clearLoader();
             recipeView.renderRecipe(
@@ -102,11 +102,11 @@ const controlRecipe = async () => {
         }
     }
 };
- 
+
 ['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe));
 
 
-/** 
+/**
  * LIST CONTROLLER
  */
 const controlList = () => {
@@ -140,7 +140,7 @@ elements.shopping.addEventListener('click', e => {
 });
 
 
-/** 
+/**
  * LIKE CONTROLLER
  */
 const controlLike = () => {
@@ -179,7 +179,7 @@ const controlLike = () => {
 // Restore liked recipes on page load
 window.addEventListener('load', () => {
     state.likes = new Likes();
-    
+
     // Restore likes
     state.likes.readStorage();
 
@@ -193,7 +193,7 @@ window.addEventListener('load', () => {
 
 // Handling recipe button clicks
 elements.recipe.addEventListener('click', e => {
-    if (e.target.matches('.btn-decrease, .btn-decrease *')) {
+    if (e.target.matches(".btn-decrease ")) {
         // Decrease button is clicked
         if (state.recipe.servings > 1) {
             state.recipe.updateServings('dec');

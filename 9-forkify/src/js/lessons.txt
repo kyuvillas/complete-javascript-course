@@ -1,0 +1,17 @@
+
+NPM Ecosystem
+	- Libraries/frameworks
+		- React, etc
+	- Develpment Tools
+		- ex: Webpack
+
+CMD
+	dir
+		- check current Directory
+	mkdir
+		- make Directory <name>
+
+Webpack
+	- Make webpack.config.js
+	entry
+		- Webpack will start the bundling

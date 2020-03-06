@@ -9,7 +9,222 @@
 <body>
     <h1>Asynchronous JavaScript</h1>
     <script>
-        
+
+		///////////////////////////////////////////////////
+		// Async Intro
+		///////////////////////////////////////////////////
+
+		// This is an example of an Async function because it start a new thread
+		// we dont wait for
+
+		/*
+		const second = () => {
+			console.log('Second');
+			setTimeout(() => {
+				console.log('Async Hey there');
+
+			}, 2000);
+		}
+        const first = () => {
+			console.log('Hey there');
+			second()
+			console.log('The end');
+		}
+		first();
+
+
+		const image = document.getElementById('img').src;
+
+		processLargeImage(image, () => {
+			console.log('Image processed!');
+		})
+		*/
+
+		///////////////////////////////////////////////////
+		// Async Intro
+		///////////////////////////////////////////////////
+
+		/*
+		// the old way 'The Callback Hell'
+		function getRecipe() {
+			setTimeout(() => {
+				const recipeID = [213,123,542];
+				console.log(recipeID);
+
+				setTimeout((id) => {
+
+					const recipe = {
+						title: 'Fresh Tomato',
+						publisher: 'Jonas'
+					};
+
+					console.log(`${id}: ${recipe.title}`);
+
+					setTimeout(piblisher => {
+						const recipe = {title: 'Italian Pizza', publisher: 'Jonas'};
+						console.log(recipe);
+					},1500, recipe.publisher)
+				}, 1000, recipeID[2])
+
+
+			}, 1500);
+		}
+		getRecipe();
+		*/
+
+		///////////////////////////////////////////////////
+		// Async ES6
+		///////////////////////////////////////////////////
+
+/*
+
+		// arg 1 is the 'Executer Object' - accepts two function parameters
+		const getIDS = new Promise((resolve, reject) => {
+			setTimeout(() => {
+				resolve([213,123,542]);
+				//reject([213,123,542])			// this goes to catch()
+			}, 1500);
+		});
+
+		const getRecipe = recID => {
+			return new Promise((resolve, reject) => {
+				setTimeout(ID => {
+					const recipe = {title: 'Fresh Tomato', publisher: 'Jonas'};
+					// resolve(`${ID}: ${recipe.title}`);
+					resolve(recipe);
+				}, 1500,recID)
+			})
+		}
+
+		const getRelated = publisher => {
+			return new Promise((resolve, reject) => {
+				setTimeout(pub => {
+					const recipe = {title: 'Italian Pizza', publisher: 'Jonas'};
+					resolve(`${pub}: ${recipe.title} `);
+
+				}, 1500, publisher)
+			})
+		}
+
+		// then is available in all Promise
+		// arg 1 = Event Handler
+		// use 'then' when u know the Promise is always fulfilled
+
+		// use 'catch' if the run is rejected
+		getIDS
+		.then((IDs) => {
+			console.log(IDs);
+			// getRecipe(IDs[2]).then		// old way
+			return getRecipe([IDs[2]]);
+		})
+		.then(recipe => {
+			console.log(recipe);			// Promise chain
+			return getRelated(recipe.publisher);
+		})
+		.then(recipe => {
+			console.log(recipe);
+		})
+		.catch(error => {
+			console.log(error);
+		});
+
+*/
+
+
+		///////////////////////////////////////////////////
+		// Async ASYNC/ AWAIT
+		// ES8
+		///////////////////////////////////////////////////
+
+/*
+
+		// this is an async function
+		// return a PROMISE
+		// can have one or more 'await' functions. Waits for all promises to finish before
+		// proceeding the code
+
+		// awaits can only be in a async function
+		async function getRecipeAW(){
+			const IDs = await getIDS;
+			console.log(IDs);
+
+			const recipe = await getRecipe(IDs[2]);
+			console.log(recipe);
+
+			const related = await getRelated(recipe.publisher);
+			console.log(related);
+
+			// example
+			// this is actually a resolve
+			return recipe;
+
+		}
+		// const rec = getRecipeAW();
+		// console.log(rec);	// wont work. Will print a Promise Object
+		getRecipeAW().then(result => console.log(`${result.title} is the best ever!`));
+
+*/
+
+		///////////////////////////////////////////////////
+		// FETCH
+		///////////////////////////////////////////////////
+
+		//same origin policy - wont work
+		// will use crossorigin.me
+		// or install ModHeader extension
+		// 2487956
+
+		function getWeather(woeid){
+			fetch(`https://www.metaweather.com/api/location/${woeid}/`)
+			.then(result => {
+				return result.json();
+			})
+			.then(data => {
+				const today = data.consolidated_weather[0];
+				//template strings
+				console.log(`Temperatures in ${data.title} stay between ${today.min_temp} and ${today.max_temp}`);
+
+			})
+			.catch(error => {
+				console.log(error);
+			});
+		}
+		getWeather(2487956);
+		getWeather(44418);
+
+
+		// ASYNC VERSION
+
+		async function getWeatherAW(woeid){
+			try{
+				const result = await fetch(`https://www.metaweather.com/api/location/${woeid}/`);
+				const data = await result.json();
+				// const today = data.consolidated_weather[0];
+				const tomorrow = data.consolidated_weather[1];
+				console.log(`Temperatures tomorrow in ${data.title} stay between ${tomorrow.min_temp} and ${tomorrow.max_temp}`);
+
+				return data;	//resolve value
+			} catch(error){
+				console.log(error);
+			}
+		}
+		console.log('hello');
+		getWeatherAW(2487956);
+
+		let london =	getWeatherAW(44418).then(data => {
+			console.log(data);
+			return data;
+		});
+
+
+
+
+
+
+
+
+		//
+
     </script>
 </body>
 </html>

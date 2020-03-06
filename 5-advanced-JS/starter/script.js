@@ -1,4 +1,5 @@
 /*
+//Function Constructor
 var Person = function(name, yearBirth, job){
   this.name = name;
   this.yearBirth = yearBirth;

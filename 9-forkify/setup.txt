@@ -1,0 +1,68 @@
+
+
+1. Install Node
+	Install from net
+
+2. If theres an existing package.json already
+	: npm install
+
+2. Install Webpack through npm in CMD
+	2.1 : npm install webpack --save-dev
+		: npm install webpack-cli --save-dev
+			- --save-dev devDependencies field in package.json
+				- dependency only for development
+			- save locally
+
+			: npm install  live-server --global
+	2.2 create webpack.config.js
+		example:
+		module.exports = {
+			entry: './src/js/index.js',
+			output: {
+				path: path.resolve(__dirname, 'dist'),
+				filename: 'js/bundle.js'
+			}
+		}
+	2.3 Change from package.json 'scripts'
+		"scripts": {
+		  "dev": "webpack --mode development",
+	      "build": "webpack --mode production"
+		}
+	2.4 run bundle
+		npm run dev or
+		npm run build
+
+3. install webpack dev server
+	3.1 npm install webpack-dev-server --save-dev
+	3.2 go to webpack.config.js add:
+
+		devServer: {
+			contentBase: './dist'
+		}
+	3.3 add in package,json
+
+		"scripts": {
+		  "dev": "webpack --mode development",
+		  "build": "webpack --mode production",
+		"start": "webpack-dev-server --mode development --open"
+		}
+
+3.
+
+4. Install Babel
+	npm install --save-dev @babel/core @babel/preset-env babel-loader
+	npm install --save core-js@3 regenerator-runtime
+
+
+
+
+
+
+
+
+
+
+
+
+
+.
